@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>WakeSnap - Smart Picture Alarm</title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="style.css">
+
+</head>
+
+<body>
+
+
+<!-- =====================================================
+                    LOGIN / REGISTER
+===================================================== -->
+
+<section id="authPage" class="auth-page">
+
+    <div class="auth-left">
+
+        <div class="logo">
+            <span>W</span>
+            WakeSnap
+        </div>
+
+        <div class="auth-content">
+
+            <p class="eyebrow">
+                SMART PICTURE ALARM
+            </p>
+
+            <h1>
+                Wake up.<br>
+                <span>Snap into</span> your day.
+            </h1>
+
+            <p>
+                WakeSnap makes waking up more interactive.
+                Set an alarm, choose a picture and capture
+                the same picture to turn the alarm off.
+            </p>
+
+            <div class="mini-cards">
+
+                <div>
+                    ⏰
+                    <b>Smart Alarm</b>
+                    <small>Personalized wake-up</small>
+                </div>
+
+                <div>
+                    📸
+                    <b>Picture Challenge</b>
+                    <small>Capture to stop</small>
+                </div>
+
+                <div>
+                    📊
+                    <b>Statistics</b>
+                    <small>Track your routine</small>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="auth-right">
+
+        <div class="auth-box">
+
+            <div class="tabs">
+
+                <button class="tab active"
+                        onclick="showLogin()">
+                    Login
+                </button>
+
+                <button class="tab"
+                        onclick="showRegister()">
+                    Register
+                </button>
+
+            </div>
+
+
+            <!-- LOGIN -->
+
+            <form id="loginForm">
+
+                <h2>
+                    Welcome back 👋
+                </h2>
+
+                <p class="muted">
+                    Sign in to continue to WakeSnap.
+                </p>
+
+                <label>
+                    Email
+                </label>
+
+                <input type="email"
+                       id="loginEmail"
+                       placeholder="you@example.com"
+                       required>
+
+                <label>
+                    Password
+                </label>
+
+                <input type="password"
+                       id="loginPassword"
+                       placeholder="••••••••"
+                       required>
+
+                <button class="primary full">
+                    Login →
+                </button>
+
+                <p class="demo">
+                    Demo: any email and password works.
+                </p>
+
+            </form>
+
+
+            <!-- REGISTER -->
+
+            <form id="registerForm"
+                  class="hidden">
+
+                <h2>
+                    Create account ✨
+                </h2>
+
+                <p class="muted">
+                    Start your smart wake-up routine.
+                </p>
+
+                <label>
+                    Name
+                </label>
+
+                <input type="text"
+                       id="regName"
+                       placeholder="Your name"
+                       required>
+
+                <label>
+                    Email
+                </label>
+
+                <input type="email"
+                       id="regEmail"
+                       placeholder="you@example.com"
+                       required>
+
+                <label>
+                    Password
+                </label>
+
+                <input type="password"
+                       id="regPassword"
+                       placeholder="Create password"
+                       required>
+
+                <button class="primary full">
+                    Create Account →
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+                    MAIN APPLICATION
+===================================================== -->
+
+<div id="app" class="hidden">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <span>W</span>
+            WakeSnap
+
+        </div>
+
+
+        <div class="profile">
+
+            <div class="avatar"
+                 id="avatar">
+                W
+            </div>
+
+            <div>
+
+                <b id="username">
+                    WakeSnap User
+                </b>
+
+                <small>
+                    Smart routine
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <nav>
+
+            <button class="nav-btn active"
+                    onclick="showPage('dashboard',this)">
+                🏠 Dashboard
+            </button>
+
+            <button class="nav-btn"
+                    onclick="showPage('alarms',this)">
+                ⏰ My Alarms
+            </button>
+
+            <button class="nav-btn"
+                    onclick="showPage('setAlarm',this)">
+                ➕ Set Alarm
+            </button>
+
+            <button class="nav-btn"
+                    onclick="showPage('reminders',this)">
+                🔔 Reminders
+            </button>
+
+            <button class="nav-btn"
+                    onclick="showPage('details',this)">
+                📌 Alarm Status
+            </button>
+
+            <button class="nav-btn"
+                    onclick="showPage('suggestions',this)">
+                💡 Smart Suggestions
+            </button>
+
+            <button class="nav-btn"
+                    onclick="showPage('history',this)">
+                📊 History & Statistics
+            </button>
+
+        </nav>
+
+
+        <button class="logout"
+                onclick="logout()">
+            ↪ Logout
+        </button>
+
+    </aside>
+
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <div>
+
+                <p class="eyebrow">
+                    YOUR SMART ROUTINE
+                </p>
+
+                <h2 id="pageTitle">
+                    Good Morning 👋
+                </h2>
+
+            </div>
+
+
+            <div class="top-actions">
+
+                <div id="clock">
+                    --:--:--
+                </div>
+
+                <button class="notification"
+                        onclick="showPage('reminders')">
+                    🔔
+                </button>
+
+                <div class="user-circle"
+                     id="userCircle">
+                    W
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+                            DASHBOARD
+        ================================================== -->
+
+        <section id="dashboard"
+                 class="page active">
+
+            <div class="hero">
+
+                <div>
+
+                    <span class="chip">
+                        📸 PICTURE POWERED ALARM
+                    </span>
+
+                    <h1>
+                        Wake up.<br>
+                        <span>Capture.</span>
+                        Start.
+                    </h1>
+
+                    <p>
+                        WakeSnap shows your selected picture
+                        when the alarm rings. Capture the
+                        matching picture to stop the alarm.
+                    </p>
+
+                    <div class="buttons">
+
+                        <button class="primary"
+                                onclick="showPage('setAlarm')">
+                            + Set an Alarm
+                        </button>
+
+                        <button class="secondary"
+                                onclick="showPage('suggestions')">
+                            Smart Suggestions
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="phone-area">
+
+                    <div class="sun">
+                        ☀️
+                    </div>
+
+                    <div class="phone">
+
+                        <div id="phoneTime">
+                            07:00
+                        </div>
+
+                        <small>
+                            PICTURE ALARM
+                        </small>
+
+                        <div class="alarm-icon">
+                            📸
+                        </div>
+
+                        <b id="phoneAlarm">
+                            No Alarm
+                        </b>
+
+                    </div>
+
+                    <div class="floating">
+                        ✓ Snap to Stop
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="section-title">
+
+                <div>
+
+                    <p class="eyebrow">
+                        AT A GLANCE
+                    </p>
+
+                    <h3>
+                        Today's Routine
+                    </h3>
+
+                </div>
+
+                <button class="text-btn"
+                        onclick="showPage('history')">
+                    View Statistics →
+                </button>
+
+            </div>
+
+
+            <div class="stats">
+
+                <div class="stat purple">
+
+                    <span>⏰</span>
+
+                    <small>
+                        Active Alarms
+                    </small>
+
+                    <strong id="alarmCount">
+                        0
+                    </strong>
+
+                    <em>
+                        scheduled
+                    </em>
+
+                </div>
+
+
+                <div class="stat peach">
+
+                    <span>🔔</span>
+
+                    <small>
+                        Reminders
+                    </small>
+
+                    <strong id="reminderCount">
+                        0
+                    </strong>
+
+                    <em>
+                        upcoming
+                    </em>
+
+                </div>
+
+
+                <div class="stat green">
+
+                    <span>✓</span>
+
+                    <small>
+                        Completed
+                    </small>
+
+                    <strong id="completedCount">
+                        0
+                    </strong>
+
+                    <em>
+                        this week
+                    </em>
+
+                </div>
+
+
+                <div class="stat yellow">
+
+                    <span>📸</span>
+
+                    <small>
+                        Picture Challenges
+                    </small>
+
+                    <strong id="pictureCount">
+                        0
+                    </strong>
+
+                    <em>
+                        created
+                    </em>
+
+                </div>
+
+            </div>
+
+
+            <div class="section-title">
+
+                <h3>
+                    Upcoming Alarms
+                </h3>
+
+                <button class="text-btn"
+                        onclick="showPage('alarms')">
+                    See All →
+                </button>
+
+            </div>
+
+
+            <div id="dashboardAlarms"></div>
+
+        </section>
+
+
+
+        <!-- =================================================
+                            ALARMS
+        ================================================== -->
+
+        <section id="alarms"
+                 class="page">
+
+            <div class="page-heading">
+
+                <div>
+
+                    <p class="eyebrow">
+                        SCHEDULED ALARMS
+                    </p>
+
+                    <h1>
+                        My Alarms
+                    </h1>
+
+                    <p>
+                        Manage your smart picture alarms.
+                    </p>
+
+                </div>
+
+                <button class="primary"
+                        onclick="showPage('setAlarm')">
+                    + New Alarm
+                </button>
+
+            </div>
+
+
+            <div class="filters">
+
+                <button class="filter active"
+                        onclick="filterAlarms('all',this)">
+                    All
+                </button>
+
+                <button class="filter"
+                        onclick="filterAlarms('active',this)">
+                    Active
+                </button>
+
+                <button class="filter"
+                        onclick="filterAlarms('off',this)">
+                    Off
+                </button>
+
+            </div>
+
+
+            <div id="alarmList"></div>
+
+        </section>
+
+
+
+        <!-- =================================================
+                         SET ALARM
+        ================================================== -->
+
+        <section id="setAlarm"
+                 class="page">
+
+            <div class="page-heading">
+
+                <div>
+
+                    <p class="eyebrow">
+                        CREATE NEW
+                    </p>
+
+                    <h1>
+                        Set an Alarm ⏰
+                    </h1>
+
+                    <p>
+                        Choose a time and picture challenge.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <form id="alarmForm"
+                  class="form-card">
+
+
+                <div class="time-box">
+
+                    <label>
+                        Alarm Time
+                    </label>
+
+                    <input type="time"
+                           id="alarmTime"
+                           value="07:00"
+                           required>
+
+                    <small id="timeText">
+                        Set your wake-up time
+                    </small>
+
+                </div>
+
+
+                <div class="form-grid">
+
+
+                    <div>
+
+                        <label>
+                            Alarm Name
+                        </label>
+
+                        <input type="text"
+                               id="alarmName"
+                               placeholder="Morning Wake Up"
+                               required>
+
+                    </div>
+
+
+                    <div>
+
+                        <label>
+                            Alarm Sound
+                        </label>
+
+                        <select id="alarmSound">
+
+                            <option>
+                                Gentle Sunrise
+                            </option>
+
+                            <option>
+                                Morning Birds
+                            </option>
+
+                            <option>
+                                Classic Bell
+                            </option>
+
+                            <option>
+                                Digital Pulse
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="wide">
+
+                        <label>
+                            Repeat
+                        </label>
+
+                        <div class="days">
+
+                            <button type="button"
+                                    data-day="Mon">
+                                M
+                            </button>
+
+                            <button type="button"
+                                    data-day="Tue">
+                                T
+                            </button>
+
+                            <button type="button"
+                                    data-day="Wed">
+                                W
+                            </button>
+
+                            <button type="button"
+                                    data-day="Thu">
+                                T
+                            </button>
+
+                            <button type="button"
+                                    data-day="Fri">
+                                F
+                            </button>
+
+                            <button type="button"
+                                    data-day="Sat">
+                                S
+                            </button>
+
+                            <button type="button"
+                                    data-day="Sun">
+                                S
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        <label>
+                            Activity
+                        </label>
+
+                        <input type="text"
+                               id="alarmLabel"
+                               placeholder="Study / Workout / Class">
+
+                    </div>
+
+
+                    <div>
+
+                        <label>
+                            Snooze
+                        </label>
+
+                        <select id="snooze">
+
+                            <option>
+                                5 minutes
+                            </option>
+
+                            <option>
+                                10 minutes
+                            </option>
+
+                            <option>
+                                15 minutes
+                            </option>
+
+                            <option>
+                                Off
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- PICTURE UPLOAD -->
+
+                    <div class="wide picture-upload">
+
+                        <label>
+                            📸 Target Picture
+                        </label>
+
+                        <p class="upload-help">
+                            Add the picture that must be captured
+                            to stop this alarm.
+                        </p>
+
+                        <input type="file"
+                               id="alarmPicture"
+                               accept="image/*"
+                               required>
+
+                        <div id="picturePreview"
+                             class="picture-preview">
+
+                            <div>
+                                📷
+                            </div>
+
+                            <p>
+                                No picture selected
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="form-buttons">
+
+                    <button type="button"
+                            class="secondary"
+                            onclick="showPage('alarms')">
+                        Cancel
+                    </button>
+
+                    <button type="submit"
+                            class="primary">
+                        Save Picture Alarm ✓
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+
+        <!-- =================================================
+                         REMINDERS
+        ================================================== -->
+
+        <section id="reminders"
+                 class="page">
+
+            <div class="page-heading">
+
+                <div>
+
+                    <p class="eyebrow">
+                        DON'T MISS IT
+                    </p>
+
+                    <h1>
+                        Reminders 🔔
+                    </h1>
+
+                    <p>
+                        Add reminders for your daily routine.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="reminder-layout">
+
+
+                <form id="reminderForm"
+                      class="form-card">
+
+                    <h3>
+                        New Reminder 🔔
+                    </h3>
+
+                    <label>
+                        Reminder Title
+                    </label>
+
+                    <input type="text"
+                           id="remTitle"
+                           placeholder="Drink Water"
+                           required>
+
+                    <label>
+                        Date
+                    </label>
+
+                    <input type="date"
+                           id="remDate"
+                           required>
+
+                    <label>
+                        Time
+                    </label>
+
+                    <input type="time"
+                           id="remTime"
+                           value="10:00"
+                           required>
+
+                    <label>
+                        Category
+                    </label>
+
+                    <select id="remCategory">
+
+                        <option>
+                            Health
+                        </option>
+
+                        <option>
+                            Study
+                        </option>
+
+                        <option>
+                            Work
+                        </option>
+
+                        <option>
+                            Personal
+                        </option>
+
+                        <option>
+                            Other
+                        </option>
+
+                    </select>
+
+                    <button class="primary full">
+                        Add Reminder +
+                    </button>
+
+                </form>
+
+
+                <div class="green-panel">
+
+                    <div class="big-icon">
+                        🔔
+                    </div>
+
+                    <h2>
+                        Little reminders.<br>
+                        <span>Big difference.</span>
+                    </h2>
+
+                    <p>
+                        Use reminders for water, classes,
+                        workouts and important tasks.
+                    </p>
+
+                    <div class="tip">
+                        💡 Keep reminder titles short and simple.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="section-title">
+
+                <h3>
+                    Your Reminders
+                </h3>
+
+            </div>
+
+            <div id="reminderList"></div>
+
+        </section>
+
+
+
+        <!-- =================================================
+                       ALARM DETAILS
+        ================================================== -->
+
+        <section id="details"
+                 class="page">
+
+            <div class="page-heading">
+
+                <div>
+
+                    <p class="eyebrow">
+                        LIVE STATUS
+                    </p>
+
+                    <h1>
+                        Alarm Details
+                    </h1>
+
+                    <p>
+                        View your next picture challenge.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div id="detailsBox"
+                 class="detail-card">
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+                       SMART SUGGESTIONS
+        ================================================== -->
+
+        <section id="suggestions"
+                 class="page">
+
+            <div class="page-heading">
+
+                <div>
+
+                    <p class="eyebrow">
+                        PERSONALIZED IDEAS
+                    </p>
+
+                    <h1>
+                        Smart Suggestions 💡
+                    </h1>
+
+                    <p>
+                        Simple ideas for a better routine.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="suggestion-grid">
+
+
+                <div class="suggestion-card s1">
+
+                    <span>
+                        🌅
+                    </span>
+
+                    <h3>
+                        Consistent Wake-up
+                    </h3>
+
+                    <p>
+                        Keep your wake-up time consistent
+                        every day.
+                    </p>
+
+                    <button class="text-btn"
+                            onclick="useTime('07:00')">
+                        Use 7:00 AM →
+                    </button>
+
+                </div>
+
+
+                <div class="suggestion-card s2">
+
+                    <span>
+                        📸
+                    </span>
+
+                    <h3>
+                        Picture Challenge
+                    </h3>
+
+                    <p>
+                        Keep your target picture in an easy
+                        to capture location.
+                    </p>
+
+                    <button class="text-btn"
+                            onclick="showPage('setAlarm')">
+                        Create Challenge →
+                    </button>
+
+                </div>
+
+
+                <div class="suggestion-card s3">
+
+                    <span>
+                        🏃
+                    </span>
+
+                    <h3>
+                        Workout Routine
+                    </h3>
+
+                    <p>
+                        Create a repeating morning alarm
+                        for your workout.
+                    </p>
+
+                    <button class="text-btn"
+                            onclick="useTime('06:00')">
+                        Use 6:00 AM →
+                    </button>
+
+                </div>
+
+
+                <div class="suggestion-card s4">
+
+                    <span>
+                        🌙
+                    </span>
+
+                    <h3>
+                        Wind-down Reminder
+                    </h3>
+
+                    <p>
+                        Add a night reminder to prepare
+                        for tomorrow.
+                    </p>
+
+                    <button class="text-btn"
+                            onclick="showPage('reminders')">
+                        Add Reminder →
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+                       HISTORY
+        ================================================== -->
+
+        <section id="history"
+                 class="page">
+
+            <div class="page-heading">
+
+                <div>
+
+                    <p class="eyebrow">
+                        YOUR PROGRESS
+                    </p>
+
+                    <h1>
+                        History & Statistics
+                    </h1>
+
+                    <p>
+                        Track your WakeSnap routine.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="stats">
+
+
+                <div class="stat purple">
+
+                    <span>
+                        ✓
+                    </span>
+
+                    <small>
+                        Completed Alarms
+                    </small>
+
+                    <strong id="historyCompleted">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="stat peach">
+
+                    <span>
+                        ⏱
+                    </span>
+
+                    <small>
+                        Average Wake Time
+                    </small>
+
+                    <strong id="averageTime">
+                        --:--
+                    </strong>
+
+                </div>
+
+
+                <div class="stat green">
+
+                    <span>
+                        📅
+                    </span>
+
+                    <small>
+                        Active Days
+                    </small>
+
+                    <strong id="activeDays">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="stat yellow">
+
+                    <span>
+                        📸
+                    </span>
+
+                    <small>
+                        Picture Challenges
+                    </small>
+
+                    <strong id="historyPictures">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="chart-card">
+
+                <p class="eyebrow">
+                    WEEKLY VIEW
+                </p>
+
+                <h3>
+                    Routine Activity
+                </h3>
+
+                <div class="bars">
+
+                    <div class="bar-item">
+                        <div class="bar"
+                             style="height:35%">
+                        </div>
+                        <small>Mon</small>
+                    </div>
+
+                    <div class="bar-item">
+                        <div class="bar"
+                             style="height:55%">
+                        </div>
+                        <small>Tue</small>
+                    </div>
+
+                    <div class="bar-item">
+                        <div class="bar"
+                             style="height:75%">
+                        </div>
+                        <small>Wed</small>
+                    </div>
+
+                    <div class="bar-item">
+                        <div class="bar"
+                             style="height:45%">
+                        </div>
+                        <small>Thu</small>
+                    </div>
+
+                    <div class="bar-item">
+                        <div class="bar"
+                             style="height:85%">
+                        </div>
+                        <small>Fri</small>
+                    </div>
+
+                    <div class="bar-item">
+                        <div class="bar"
+                             style="height:60%">
+                        </div>
+                        <small>Sat</small>
+                    </div>
+
+                    <div class="bar-item">
+                        <div class="bar"
+                             style="height:70%">
+                        </div>
+                        <small>Sun</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="history-card">
+
+                <h3>
+                    Recent Activity
+                </h3>
+
+                <div id="historyList"></div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+
+<!-- =====================================================
+                ALARM CHALLENGE POPUP
+===================================================== -->
+
+<div id="alarmModal"
+     class="alarm-modal hidden">
+
+    <div class="alarm-modal-box">
+
+        <div class="ringing-icon">
+            ⏰
+        </div>
+
+        <p class="eyebrow">
+            WAKE SNAP CHALLENGE
+        </p>
+
+        <h1>
+            Wake Up! 📸
+        </h1>
+
+        <p id="ringingAlarmName">
+            Your alarm is ringing.
+        </p>
+
+
+        <!-- TARGET IMAGE -->
+
+        <div class="target-area">
+
+            <h3>
+                Capture this picture
+            </h3>
+
+            <img id="targetImage"
+                 src=""
+                 alt="Target Picture">
+
+        </div>
+
+
+        <!-- CAMERA -->
+
+        <div class="camera-area">
+
+            <video id="camera"
+                   autoplay
+                   playsinline>
+            </video>
+
+            <canvas id="captureCanvas"
+                    class="hidden">
+            </canvas>
+
+        </div>
+
+
+        <div id="matchMessage"
+             class="match-message">
+            Position the camera and capture the picture.
+        </div>
+
+
+        <div class="camera-buttons">
+
+            <button class="secondary"
+                    onclick="closeCamera()">
+                Cancel Camera
+            </button>
+
+            <button class="primary"
+                    onclick="captureAndCheck()">
+                📸 Capture & Check
+            </button>
+
+        </div>
+
+
+        <div class="alarm-warning">
+            ⚠️ The alarm will stop only when the
+            captured picture matches the target picture.
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<div id="toast"></div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
